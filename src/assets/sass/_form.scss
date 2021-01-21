@@ -1,0 +1,16 @@
+.form-group {
+    margin-bottom: 20px !important;
+}
+.group-code {
+    display: flex;
+    margin-bottom: 80px;
+    justify-content: space-between;
+    .form-control{
+        background-color: transparent;
+        width: 64px;
+        height: 65px;
+        text-align: center !important;
+        color: #fff !important;
+        font-size: 30px;
+    }
+}
