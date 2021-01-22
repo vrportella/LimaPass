@@ -5,4 +5,5 @@ module.exports = {
             chunkFilename: "css/[name].css",
         },
     },
+    publicPath: './'
 };
