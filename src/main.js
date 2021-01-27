@@ -7,10 +7,13 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+import VueAxios from 'vue-axios';
+import Axios from 'axios'
 
 import Default from "./layouts/Default.vue";
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
+Vue.use(VueAxios, Axios)
 Vue.config.productionTip = false;
 
 Vue.component("default-layout", Default);
