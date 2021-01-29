@@ -1,5 +1,6 @@
 <template>
   <div id="bg_blue">
+    <div v-if="loading" class="container-loader"><div class="loader">Cargando...</div></div>
     <b-container class="login_container">
       <b-alert show variant="danger" v-if="error">{{error_msg}}</b-alert>
       <img class="logo" src="@/assets/img/logo.png" />
@@ -31,11 +32,13 @@
       return {
         dni: "",
         error: false,
-        error_msg: ""
+        error_msg: "",
+        loading: false
       }
     },
     methods: {
       login() {
+        this.loading = true;
         let json = {
           "dni": this.dni
         };
@@ -43,6 +46,7 @@
         .then( data => {
           console.log(data)
           if(data.status == 200) {
+            this.loading = false;
             console.log("BIENVENIDO");
             this.$router.push('tarjetas')
           } 
@@ -50,6 +54,7 @@
         .catch(err =>
           {
             console.log(err.response)
+            this.loading = false;
             this.error = true;
             this.error_msg = err.response.data.data.cambio
           }
