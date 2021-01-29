@@ -1,0 +1,21 @@
+.card_tarjeta {
+    display: flex;
+    max-width: 340px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #fff;
+    padding: 30px 0 20px;
+    h6 {
+        color: #fff;
+    }
+    img {
+        width: 100%;
+        object-fit: contain;
+    }
+}
+
+.cards-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

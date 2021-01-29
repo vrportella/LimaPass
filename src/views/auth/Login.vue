@@ -39,7 +39,7 @@
         let json = {
           "dni": this.dni
         };
-        axios.post('https://backend-passs.herokuapp.com/api' + '/login', json)
+        axios.post('https://backend-passs.herokuapp.com/api/login', json)
         .then( data => {
           console.log(data)
           if(data.status == 200) {
