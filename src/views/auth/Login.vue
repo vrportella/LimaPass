@@ -63,9 +63,10 @@
             this.role = res.usuario.role;
             this.uid = res.usuario.uid;
             this.generatePIN();
-            console.log('pin',this.pin)
+            
             if(this.pin) {
-              var params = {message: this.pin}
+              var params = {message: this.pin};
+              // console.log('pin',params)
               emailjs.sendForm('service_3z6vpyf', 'template_8UZWBPKn', e.target, 'user_h4PURwJXfyqxNMXb8osEh',params)
               .then((result) => {
                   console.log('SUCCESS!', result.status, result.text);

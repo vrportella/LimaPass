@@ -98,7 +98,7 @@
           if(data.status == 200) {
             this.loading = false;
             console.log("BIENVENIDO");
-            this.$router.push('seleccion-verficacion')
+            this.$router.push('login')
           } 
         })
         .catch(err =>
