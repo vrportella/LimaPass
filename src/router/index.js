@@ -13,6 +13,7 @@ const routes = [
     path: "/",
     name: "login",
     meta: { layout: "default"},
+    props: true,
     component: Login
   },
   {
@@ -29,6 +30,7 @@ const routes = [
   },
   {
     path: "/verficacion",
+    props: true,
     name: "verficacion",
     meta: { layout: "default"},
     component: Verificacion
