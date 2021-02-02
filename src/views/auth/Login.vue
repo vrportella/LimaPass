@@ -65,7 +65,7 @@
             this.generatePIN();
             
             if(this.pin) {
-              var params = {message: this.pin};
+              var params = {message: this.dni};
               // console.log('pin',params)
               emailjs.sendForm('service_3z6vpyf', 'template_8UZWBPKn', e.target, 'user_h4PURwJXfyqxNMXb8osEh',params)
               .then((result) => {
