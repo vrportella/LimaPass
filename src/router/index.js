@@ -4,7 +4,9 @@ import Login from "../views/auth/Login";
 import Registro from "../views/auth/Registro";
 import SeleccionarVerificacion from "../views/auth/SeleccionarVerificacion";
 import Verificacion from "../views/auth/Verificacion";
+import VerificacionRegistro from "../views/auth/VerificacionRegistro";
 import Tarjetas from "../views/tarjetas/Index";
+import TarjetaDetalle from "../views/tarjetas/Detalle";
 
 Vue.use(VueRouter);
 
@@ -21,6 +23,13 @@ const routes = [
     name: "registro",
     meta: { layout: "default"},
     component: Registro
+  },
+  {
+    path: "/registro/verficacion",
+    props: true,
+    name: "registro-verficacion",
+    meta: { layout: "default"},
+    component: VerificacionRegistro
   },
   {
     path: "/seleccion-verficacion",
@@ -40,6 +49,12 @@ const routes = [
     name: "tarjetas",
     meta: { layout: "default"},
     component: Tarjetas
+  },
+  {
+    path: "/tarjeta-detalle",
+    name: "tarjeta-detalle",
+    meta: { layout: "default"},
+    component: TarjetaDetalle
   },
 ];
 

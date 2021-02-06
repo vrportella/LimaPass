@@ -6,7 +6,7 @@
     </b-navbar>
     <div class="container_360">
       <b-container class="registro_container py-5">
-        <h3 class="white mb-5">SE TE ENVIO UN CODIGO A LA OPCION QUE SELECCIONASTE</h3> 
+        <h3 class="white mb-5">POR FAVOR INGRESA EL CÓDIGO DEL CORREO ENVIADO</h3> 
         <div class="group-code">
           <input class="form-control" v-for="(c, index) in ct" :key="index"
           v-model="ct[index]" ref="input"
@@ -25,7 +25,7 @@
   </div>
 </template>
 <script>
-  // import axios from "axios";
+  import axios from "axios";
   export default {
     data() {
       return {
@@ -34,6 +34,7 @@
         newPin: null,
         loading: false,
         msg:'',
+        user: []
       }
     },
     watch: {
@@ -49,7 +50,9 @@
       }
     },
     mounted() {
-      this.pin = this.$route.params.pin;
+      this.user = this.$route.params.user;
+      this.pin = this.$route.params.cod;
+      console.log('pin',this.$route.params.cod);
       this.resetCaret();
     },
     methods: {
@@ -87,12 +90,53 @@
         this.newPin = this.ct.join('');
         this.loading = true;
         if(this.pin == this.newPin) {
-          this.$router.push('tarjetas')
-          this.loading = false;
+          let json = {
+            "nombre": this.$route.params.nombre,
+            "apellido": this.$route.params.apellido,
+            "fecha": this.$route.params.fecha,
+            "correo": this.$route.params.correo,
+            "dni": this.$route.params.dni,
+            "numero": this.$route.params.numero,
+          };
+          axios.post('http://metropolitano.atspace.cc/php/registroCodigo.php', json)
+            .then(data => {
+            let res = data.data;
+            console.log('res: ',res)
+            this.loading = false;
+            if(res.status == 200) {
+              this.showMsgModal(res.message);
+            } else {
+              this.error = true;
+              this.error_msg = res.mensaje
+            }
+          })
+          .catch(err =>
+            {
+              // console.log(err.response)
+              this.loading = false;
+              this.error = true;
+              this.error_msg = err.response.data.data.msg
+            }
+          )
         } else {
           this.loading = false;
-          this.msg = ('Verification code error')
+          this.msg = ('Código incorrecto')
         }
+      },
+      showMsgModal(text) {
+        this.modalMsg = '';
+        this.$bvModal.msgBoxOk(text,{
+          title: 'Mensaje',
+        })
+          .then(value => {
+            console.log('value',value)
+            this.$router.push({
+              name: 'login'
+            })
+          })
+          // .catch(err => {
+          //   // An error occurred
+          // })
       },
     },
     computed: {

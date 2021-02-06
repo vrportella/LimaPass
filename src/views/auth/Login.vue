@@ -2,14 +2,14 @@
   <div id="bg_blue">
     <div v-if="loading" class="container-loader"><div class="loader">Cargando...</div></div>
     <b-container class="login_container">
-      <b-alert show variant="danger" v-if="error">DNI no encontrado</b-alert>
+      <b-alert show variant="danger" v-if="error">{{error_msg}}</b-alert>
       <img class="logo" src="@/assets/img/logo.png" />
       <b-form v-on:submit.prevent="login">
         <b-form-group style="margin-bottom:70px">
           <b-form-input
             type="number"
             placeholder="DNI"
-            v-model="dni"
+            v-model="campo_dni"
             required
           ></b-form-input>
         </b-form-group>
@@ -26,11 +26,10 @@
 
 <script>
   import axios from "axios";
-  import emailjs from 'emailjs-com';
   export default {
     data() {
       return {
-        dni: "",
+        campo_dni: "",
         error: false,
         error_msg: "",
         loading: false,
@@ -41,68 +40,65 @@
     this.$store.replaceState({})
   },
     methods: {
-      login(e) {
+      login() {
         this.loading = true;
-        let json = {
-          "dni": this.dni
+        let object = {
+          "dni": this.campo_dni
         };
-        axios.get(`https://backend-passs.herokuapp.com/api/login/${this.dni}`, json)
-        .then( data => {
-          console.log(data)
-          if(data.status == 200) {
-            this.loading = false;
+        axios.post('http://metropolitano.atspace.cc/php/login.php', object)
+        .then(res => {
+          console.log("res : ",res.data)
+          if(res.data.status == 200) {
             console.log("BIENVENIDO");
-            let res = data.data.data;
-            this.apellido = res.usuario.apellido;
-            this.celular = res.usuario.celular;
-            this.dni_id = res.usuario.dni;
-            this.email = res.usuario.email;
-            this.enabled = res.usuario.enabled;
-            this.nacimiento = res.usuario.nacimiento;
-            this.nombre = res.usuario.nombre;
-            this.role = res.usuario.role;
-            this.uid = res.usuario.uid;
-            this.generatePIN();
-            
-            if(this.pin) {
-              var params = {message: this.dni};
-              // console.log('pin',params)
-              emailjs.sendForm('service_3z6vpyf', 'template_8UZWBPKn', e.target, 'user_h4PURwJXfyqxNMXb8osEh',params)
-              .then((result) => {
-                  console.log('SUCCESS!', result.status, result.text);
-              }, (error) => {
-                  console.log('FAILED...', error);
-              });
+            let data = res.data.data;
+            this.$store.commit('setUser', { data });
+           
+            let json2 = {
+              "user_id": 'user_h4PURwJXfyqxNMXb8osEh',
+              "service_id": 'service_3z6vpyf',
+              "template_id": 'template_8UZWBPKn',
+              "template_params" : {
+                "message" : data.codigo            
+                }
             }
-            this.$router.push({
-              name: 'verficacion',
-              params: {
-                pin: this.pin
-              }
+
+            axios.post('https://api.emailjs.com/api/v1.0/email/send', json2)
+              .then( data => {
+              if(data.statusText == "OK") {
+                this.loading = false;
+                this.$router.push({
+                  name: 'verficacion',
+                  params: {
+                    pin: res.data.data.codigo
+                  }
+                })
+              } 
             })
-          } 
+            .catch(err =>
+              {
+                console.log(err.response)
+                this.loading = false;
+                this.error = true;
+                this.error_msg = err.response.data.data.msg
+              }
+            )
+            console.log('res.codigo',data.codigo)
+            
+          } else {
+            this.loading = false;
+            this.error = true;
+            this.error_msg = res.data.mensaje
+          }
         })
         .catch(err =>
           {
             console.log(err.response)
             this.loading = false;
-            this.error = true;
+            this.error = false;
             this.error_msg = err.response.data.data.cambio
           }
         )
       },
-      generatePIN() {
-        var pin = Math.floor(1000 + Math.random() * 9000);
-        this.pin = pin;
-      },
-      sendEmail: (e) => {
-        emailjs.sendForm('service_3z6vpyf', 'template_8UZWBPKn', e.target, 'user_h4PURwJXfyqxNMXb8osEh')
-          .then((result) => {
-              console.log('SUCCESS!', result.status, result.text);
-          }, (error) => {
-              console.log('FAILED...', error);
-          });
-      }
     },
     computed: {
       apellido: {
@@ -113,44 +109,28 @@
           this.$store.commit("mutateApellido", value);
         }
       },
-      celular: {
+      correo: {
         get() {
-          return this.$store.state.celular;
+          return this.$store.state.correo;
         },
         set(value) {
-          this.$store.commit("mutateCelular", value);
+          this.$store.commit("mutateCorreo", value);
         }
       },
-      dni_id: {
+      dni: {
         get() {
-          return this.$store.state.dni_id;
+          return this.$store.state.dni;
         },
         set(value) {
           this.$store.commit("mutateDni", value);
         }
       },
-      email: {
+      id: {
         get() {
-          return this.$store.state.email;
+          return this.$store.state.id;
         },
         set(value) {
-          this.$store.commit("mutateEmail", value);
-        }
-      },
-      enabled: {
-        get() {
-          return this.$store.state.enabled;
-        },
-        set(value) {
-          this.$store.commit("mutateEnable", value);
-        }
-      },
-      nacimiento: {
-        get() {
-          return this.$store.state.nacimiento;
-        },
-        set(value) {
-          this.$store.commit("mutateNacimiento", value);
+          this.$store.commit("mutateId", value);
         }
       },
       nombre: {
@@ -161,22 +141,14 @@
           this.$store.commit("mutateNombre", value);
         }
       },
-      role: {
+      numero: {
         get() {
-          return this.$store.state.role;
+          return this.$store.state.numero;
         },
         set(value) {
-          this.$store.commit("mutateRole", value);
+          this.$store.commit("mutateNumero", value);
         }
       },
-      uid: {
-        get() {
-          return this.$store.state.uid;
-        },
-        set(value) {
-          this.$store.commit("mutateUID", value);
-        }
-      }
     }
   }
 </script>

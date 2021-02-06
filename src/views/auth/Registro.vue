@@ -78,7 +78,8 @@
         celular: "",
         error: false,
         error_msg: false,
-        loading: false
+        loading: false,
+        modalMsg: ''
       }
     },
     methods: {
@@ -87,18 +88,63 @@
         let json = {
           "nombre": this.nombre,
           "apellido": this.apellido,
-          "nacimiento": this.fec_nac,
-          "email": this.email ,
+          "fecha": this.fec_nac,
+          "correo": this.email ,
           "dni": this.dni,
-          "celular": this.celular
+          "numero": this.celular
         };
-        axios.post('https://backend-passs.herokuapp.com/api/usuarios', json)
-        .then( data => {
-          console.log(data)
-          if(data.status == 200) {
-            this.loading = false;
+        axios.post('http://metropolitano.atspace.cc/php/registrarUsuario.php', json)
+        .then(data => {
+          let res = data.data;
+          console.log('res: ',res)
+          this.loading = false;
+          if(res.status == 200) {
             console.log("BIENVENIDO");
-            this.$router.push('login')
+            let cod =  res.data.codigo;
+            let user = {
+              nombre: this.nombre,
+              apellido: this.apellido,
+              fecha: this.fec_nac,
+              correo: this.email ,
+              dni: this.dni,
+              numero: this.celular,
+              cod: cod,
+            }
+            this.sendEmail(cod)
+            this.showMsgModal(res.mensaje, user);
+          } else {
+            this.error = true;
+            this.error_msg = res.mensaje
+          }
+        })
+        .catch(err =>
+          {
+            // console.log(err.response)
+            this.loading = false;
+            this.error = true;
+            this.error_msg = err.response.data.data.msg
+          }
+        )
+      },
+      sendEmail(cod) {
+        let json2 = {
+          "user_id": 'user_h4PURwJXfyqxNMXb8osEh',
+          "service_id": 'service_3z6vpyf',
+          "template_id": 'template_8UZWBPKn',
+          "template_params" : {
+            "message" : cod          
+            }
+        }
+        axios.post('https://api.emailjs.com/api/v1.0/email/send', json2)
+        .then( data => {
+          if(data.statusText == "OK") {
+            this.loading = false;
+            // this.$router.push({
+            //   name: 'verficacion',
+            //   params: {
+            //     pin: cod
+            //   }
+            // })
           } 
         })
         .catch(err =>
@@ -109,7 +155,23 @@
             this.error_msg = err.response.data.data.msg
           }
         )
-      }
+      },
+      showMsgModal(text,user) {
+        this.modalMsg = '';
+        this.$bvModal.msgBoxOk(text,{
+          title: 'Mensaje',
+        })
+          .then(value => {
+            console.log('value',value)
+            this.$router.push({
+              name: 'registro-verficacion',
+              params: user
+            })
+          })
+          // .catch(err => {
+          //   // An error occurred
+          // })
+      },
     }
   }
 </script>
