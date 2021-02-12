@@ -21,3 +21,22 @@
     max-width: 360px;
     margin: auto;
 }
+
+#wrapper {
+    background-color: #E6E7F2;
+    min-height: 100vh;
+}
+.verificar_tarjeta {
+    text-align: center;
+    max-width: 450px;
+    img {
+        width: 100%;
+        margin: 0 auto 50px;
+        max-width: 340px;
+    }
+    .btn-primary {
+        max-width: 260px;
+        margin: auto;
+        margin-top: 140px;
+    }
+}

@@ -6,7 +6,7 @@
     </b-navbar>
     <div class="container_360">
       <b-container class="registro_container py-5">
-        <h3 class="white mb-5">SE TE ENVIO UN CODIGO A LA OPCION QUE SELECCIONASTE</h3> 
+        <h3 class="white mb-5">SE TE ENVIO UN CÓDIGO A TU CORREO, INGRESA PARA INICIAR SESIÓN</h3> 
         <div class="group-code">
           <input class="form-control" v-for="(c, index) in ct" :key="index"
           v-model="ct[index]" ref="input"

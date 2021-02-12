@@ -7,6 +7,7 @@ import Verificacion from "../views/auth/Verificacion";
 import VerificacionRegistro from "../views/auth/VerificacionRegistro";
 import Tarjetas from "../views/tarjetas/Index";
 import TarjetaDetalle from "../views/tarjetas/Detalle";
+import Recarga from "../views/recarga/Index";
 
 Vue.use(VueRouter);
 
@@ -55,6 +56,12 @@ const routes = [
     name: "tarjeta-detalle",
     meta: { layout: "default"},
     component: TarjetaDetalle
+  },
+  {
+    path: "/recarga",
+    name: "recarga",
+    meta: { layout: "default"},
+    component: Recarga
   },
 ];
 

@@ -18,7 +18,7 @@
               <img class="logo" :src="tarjeta.imagen" />
             </div>
             <div class="ml-4">
-              <b-button block variant="outline-light">Recargar</b-button>
+              <b-button block variant="outline-light"  @click="goToRecargas(tarjeta.tipo)">Recargar</b-button>
               <b-button block variant="outline-light">Ver mas</b-button>
             </div>
           </div>
@@ -67,6 +67,17 @@
             // this.error_msg = err.response.data.data.cambio
           }
         )
+      },
+      goToRecargas(tipo) {
+        if(tipo == 0) {
+          this.$router.push({
+            name: 'tarjeta-detalle'
+          })
+        } else {
+          this.$router.push({
+            name: 'recarga'
+          })
+        }
       }
      
     },

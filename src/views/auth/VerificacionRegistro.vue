@@ -104,7 +104,7 @@
             console.log('res: ',res)
             this.loading = false;
             if(res.status == 200) {
-              this.showMsgModal(res.message);
+              this.showMsgModal(res.mensaje);
             } else {
               this.error = true;
               this.error_msg = res.mensaje
