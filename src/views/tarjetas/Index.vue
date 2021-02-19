@@ -71,11 +71,17 @@
       goToRecargas(tipo) {
         if(tipo == 0) {
           this.$router.push({
-            name: 'tarjeta-detalle'
+            name: 'tarjeta-detalle',
+            params: {
+              tipo: tipo
+            }
           })
         } else {
           this.$router.push({
-            name: 'recarga'
+            name: 'recarga',
+            params: {
+              tipo: tipo
+            }
           })
         }
       }

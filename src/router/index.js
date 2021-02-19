@@ -8,6 +8,7 @@ import VerificacionRegistro from "../views/auth/VerificacionRegistro";
 import Tarjetas from "../views/tarjetas/Index";
 import TarjetaDetalle from "../views/tarjetas/Detalle";
 import Recarga from "../views/recarga/Index";
+import Pago from "../views/recarga/Pago";
 
 Vue.use(VueRouter);
 
@@ -62,6 +63,12 @@ const routes = [
     name: "recarga",
     meta: { layout: "default"},
     component: Recarga
+  },
+  {
+    path: "/pago",
+    name: "pago",
+    meta: { layout: "default"},
+    component: Pago
   },
 ];
 

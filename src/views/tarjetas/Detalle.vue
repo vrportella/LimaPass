@@ -1,8 +1,9 @@
 <template>
   <div>
     <div v-if="loading" class="container-loader"><div class="loader">Cargando...</div></div>
-    <b-navbar  variant="light" align="center">
-      <h6 class="text-center">Tarjeta General</h6> 
+    <b-navbar  variant="dark" align="center">
+      <b-navbar-brand href="/tarjetas"><b-icon icon="arrow-left"></b-icon></b-navbar-brand>
+      <h6>Tarjeta General</h6> 
     </b-navbar>
       <b-container class="py-5 verificar_tarjeta">
         <img src="@/assets/img/detalle_tarjeta.png" />
@@ -24,12 +25,14 @@
         codigo: "",
         error: false,
         error_msg: '',
-        modalMsg: ''
+        modalMsg: '',
+        tipo: null
       }
     },
     created() {
     },
     mounted() {
+      this.tipo = this.$route.params.tipo;
     },
     methods: {
       validateCode() {
@@ -70,6 +73,12 @@
         })
           .then(value => {
             console.log('value',value)
+            this.$router.push({
+              name: 'recarga',
+              params: {
+                tipo: this.tipo
+              }
+            })
           })
       },
     },
