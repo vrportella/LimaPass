@@ -105,12 +105,15 @@ import axios from "axios";
         let master = /^(?:5[1-5][0-9]{14})$/;
         if(this.num_card.match(visa)) {
           this.c_visa = true;
-          console.log('VISA')
+          console.log('VISA');
+          this.error.num_card= '';
         } else {
           this.c_visa = false;
         }
         if(this.num_card.match(master)) {
           this.c_master = true;
+          console.log('MASTER')
+          this.error.num_card= '';
         } else {
           this.c_master = false;
         }
