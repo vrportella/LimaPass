@@ -18,8 +18,8 @@
               <img class="logo" :src="tarjeta.imagen" />
             </div>
             <div class="ml-4">
-              <b-button block variant="outline-light"  @click="goToRecargas(tarjeta.tipo)">Recargar</b-button>
-              <b-button block variant="outline-light">Ver mas</b-button>
+              <b-button block variant="outline-light" @click="goToRecargas(tarjeta.tipo)">Recargar</b-button>
+              <b-button block variant="outline-light" @click="goToHistorial(tarjeta.tipo)">Ver mas</b-button>
             </div>
           </div>
         </div>
@@ -84,8 +84,25 @@
             }
           })
         }
+      },
+      goToHistorial(tipo){
+        if(tipo == 0) {
+          this.$router.push({
+            name: 'tarjeta-detalle',
+            params: {
+              tipo: tipo,
+              historial: true
+            }
+          })
+        } else {
+          this.$router.push({
+            name: 'movimientos',
+            params: {
+              tipo: tipo
+            }
+          })
+        }
       }
-     
     },
     computed: {
       nombre: function(){

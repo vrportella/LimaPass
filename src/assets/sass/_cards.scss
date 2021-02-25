@@ -1,52 +1,93 @@
 .card_tarjeta {
-    display: flex;
-    max-width: 340px;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #fff;
-    padding: 30px 0 20px;
-    h6 {
-        color: #fff;
-    }
-    img {
-        width: 100%;
-        object-fit: contain;
-    }
+  display: flex;
+  max-width: 340px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #fff;
+  padding: 30px 0 20px;
+  h6 {
+    color: #fff;
+  }
+  img {
+    width: 100%;
+    object-fit: contain;
+  }
 }
 
 .cards-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 .card_pago {
-    max-width: 360px;
+  max-width: 360px;
+  margin: auto;
+  padding: 25px;
+  box-shadow: 0px 1px 20px 1px rgb(0 0 0 / 25%);
+  border-radius: 5px;
+  .logo {
+    max-width: 200px;
     margin: auto;
-    padding: 25px;
-    box-shadow: 0px 1px 20px 1px rgb(0 0 0 / 25%);
-    border-radius: 5px;
-    .logo {
-        max-width: 200px;
-        margin: auto;
+  }
+  .credit_cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+    img {
+      width: 65px;
+      height: 35px;
+      margin: 10px;
     }
-    .credit_cards {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        margin-bottom: 20px;
-        img {
-            width: 65px;
-            height: 35px;
-            margin: 10px;
-        }
+  }
+  .custom-checkbox {
+    .custom-control-label {
+      font-size: 14px;
+      color: #999;
     }
-    .custom-checkbox {
-        .custom-control-label {
-            font-size: 14px;
-            color: #999
-        }
+  }
+  .btn-primary {
+    margin-top: 40px;
+  }
+}
+.container_historial {
+  max-width: 400px;
+  margin: auto;
+  .saldo {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid #fff;
+    font-size: 18px;
+    padding: 0 15px 10px;
+    margin-bottom: 40px;
+    span {
+      font-size: 24px;
+      font-weight: bold;
     }
-    .btn-primary {
-        margin-top: 40px;
+  }
+  .mov_title {
+    background-color: #fff;
+    color: #000;
+    padding: 10px 15px;
+    font-size: 25px;
+    font-weight: 600;
+  }
+  ul {
+    list-style: none;
+    margin-top: 40px;
+    color: #fff;
+    li {
+      margin-bottom: 25px;
+      display: flex;
+      justify-content: space-between;
+      padding-right: 15px;
+      border-bottom: 1px solid;
+      align-items: flex-end;
+      .price {
+        font-size: 25px;
+        font-weight: bold;
+      }
     }
+  }
 }

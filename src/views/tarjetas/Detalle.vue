@@ -26,13 +26,15 @@
         error: false,
         error_msg: '',
         modalMsg: '',
-        tipo: null
+        tipo: null,
+        historial: false
       }
     },
     created() {
     },
     mounted() {
       this.tipo = this.$route.params.tipo;
+      this.historial = this.$route.params.historial;
     },
     methods: {
       validateCode() {
@@ -73,12 +75,21 @@
         })
           .then(value => {
             console.log('value',value)
-            this.$router.push({
-              name: 'recarga',
-              params: {
-                tipo: this.tipo
-              }
-            })
+            if(this.historial) {
+              this.$router.push({
+                name: 'movimientos',
+                params: {
+                  tipo: this.tipo
+                }
+              })
+            } else {
+              this.$router.push({
+                name: 'recarga',
+                params: {
+                  tipo: this.tipo
+                }
+              })
+            }
           })
       },
     },

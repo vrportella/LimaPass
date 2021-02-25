@@ -9,6 +9,7 @@ import Tarjetas from "../views/tarjetas/Index";
 import TarjetaDetalle from "../views/tarjetas/Detalle";
 import Recarga from "../views/recarga/Index";
 import Pago from "../views/recarga/Pago";
+import Movimientos from "../views/movimientos/Index";
 
 Vue.use(VueRouter);
 
@@ -69,6 +70,12 @@ const routes = [
     name: "pago",
     meta: { layout: "default"},
     component: Pago
+  },
+  {
+    path: "/movimientos",
+    name: "movimientos",
+    meta: { layout: "default"},
+    component: Movimientos
   },
 ];
 

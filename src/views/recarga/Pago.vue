@@ -7,6 +7,7 @@
     </b-navbar>
       <b-container class="py-5">
         <div class="card card_pago">
+          <b-alert show variant="danger" v-if="error_msg">{{error.general}}</b-alert>
           <img class="logo" src="@/assets/img/logo-2.png" />
           <div class="credit_cards">
             <img v-bind:style=" c_master ? 'opacity:1;' : 'opacity:0.5;'" src="@/assets/img/credit_master.png" />
@@ -77,9 +78,10 @@ import axios from "axios";
           num_card:'',
           fecha: '',
           cvv: '',
-          checkbox: ''
+          checkbox: '',
+          general: ''
         },
-        error_msg: '',
+        error_msg: false,
         modalMsg: '',
         monto: null,
         num_card: null,
@@ -177,14 +179,15 @@ import axios from "axios";
             console.log("res : ",data)
             if(data.status == 200) {
               this.loading = false;
-              // this.error = false;
+              this.error_msg = false;
               this.showMsgModal(data.mensaje);
               // let data = res.data.data.data;
             }
             else {
               this.loading = false;
-              // this.error = true;
-              // this.error_msg = data.mensaje
+              
+              this.error_msg = true;
+              this.error.general = data.mensaje;
             }
           })
           .catch(err =>

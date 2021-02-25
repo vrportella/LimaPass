@@ -1,49 +1,49 @@
 #bg_blue {
-    background-color: $blue;
-    min-height: 100vh;
+  background-color: $blue;
+  min-height: 100vh;
 }
-.navbar  {
-    h6 {
-        margin-bottom: 0;
-        font-weight: 700;
-        font-size: 20px;
-    }
+.navbar {
+  h6 {
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: 20px;
+  }
 }
 * {
-    font-family: Roboto;
+  font-family: Roboto;
 }
 
-.white{
-    color: #fff
+.white {
+  color: #fff;
 }
 
 .container_360 {
-    max-width: 360px;
-    margin: auto;
+  max-width: 360px;
+  margin: auto;
 }
 
 #wrapper {
-    background-color: #E6E7F2;
-    min-height: 100vh;
+  background-color: #e6e7f2;
+  min-height: 100vh;
 }
 .verificar_tarjeta {
-    text-align: center;
-    max-width: 450px;
-    img {
-        width: 100%;
-        margin: 0 auto 50px;
-        max-width: 340px;
-    }
-    .btn-primary {
-        max-width: 260px;
-        margin: auto;
-        margin-top: 140px;
-    }
+  text-align: center;
+  max-width: 450px;
+  img {
+    width: 100%;
+    margin: 0 auto 50px;
+    max-width: 340px;
+  }
+  .btn-primary {
+    max-width: 260px;
+    margin: auto;
+    margin-top: 140px;
+  }
 }
 .navbar.bg-dark {
-    background: #353D82 !important;
-    color: #fff;
-    svg {
-        fill: #fff
-    }
+  background: #353d82 !important;
+  color: #fff;
+  svg {
+    fill: #fff;
+  }
 }
