@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import  createPersistedState  from  'vuex-persistedstate'
 
 Vue.use(Vuex);
 
@@ -12,10 +13,14 @@ export default new Vuex.Store({
     id: "",
     nombre: "",
     numero: "",
+    logged: false,
   },
   mutations: {
     setUser: function(state, payload) {
         state.user = payload
+    },
+    setLogged: function(state, payload) {
+        state.logged = payload;
     },
     mutateApellido: function(state, payload) {
         state.apellido = payload;
@@ -55,5 +60,9 @@ export default new Vuex.Store({
     updateNumeroAction: function({ commit }, payload) {
         commit("mutateNumero", payload);
     },
+    updateLoggedAction: function({ commit }, payload) {
+        commit("mutateLogged", payload);
+    },
   },
+  plugins: [createPersistedState()]
 });

@@ -10,6 +10,7 @@ import TarjetaDetalle from "../views/tarjetas/Detalle";
 import Recarga from "../views/recarga/Index";
 import Pago from "../views/recarga/Pago";
 import Movimientos from "../views/movimientos/Index";
+import Perfil from "../views/perfil/Index";
 
 Vue.use(VueRouter);
 
@@ -76,6 +77,12 @@ const routes = [
     name: "movimientos",
     meta: { layout: "default"},
     component: Movimientos
+  },
+  {
+    path: "/perfil",
+    name: "perfil",
+    meta: { layout: "default"},
+    component: Perfil
   },
 ];
 

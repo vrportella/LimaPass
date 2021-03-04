@@ -35,7 +35,7 @@
     methods: {
       validateMonto() {
         this.loading = true;
-        if( this.monto > 0) {
+        if( this.monto > 0 && this.monto <= 100) {
           this.loading = false;
           this.$router.push({
             name: 'pago',
@@ -47,7 +47,7 @@
         } else {
           this.loading = false;
           this.error=true;
-          this.error_msg="Ingrese un valor mayor a 0"
+          this.error_msg="Ingrese un monto válido de 0 a S/.100"
         }
       },
     },

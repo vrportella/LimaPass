@@ -52,7 +52,7 @@
             console.log("BIENVENIDO");
             let data = res.data.data;
             this.$store.commit('setUser', { data });
-           
+            this.$store.commit('setLogged', {logged:true});
             let json2 = {
               "user_id": 'user_h4PURwJXfyqxNMXb8osEh',
               "service_id": 'service_3z6vpyf',
@@ -87,7 +87,8 @@
           } else {
             this.loading = false;
             this.error = true;
-            this.error_msg = res.data.mensaje
+            this.error_msg = res.data.mensaje;
+            this.$store.commit('setLogged', {logged:false});
           }
         })
         .catch(err =>
