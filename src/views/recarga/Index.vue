@@ -3,7 +3,10 @@
     <div v-if="loading" class="container-loader"><div class="loader">Cargando...</div></div>
     <b-navbar  variant="dark" align="center">
       <b-navbar-brand href="/tarjetas"><b-icon icon="arrow-left"></b-icon></b-navbar-brand>
-      <h6>Recargar</h6> 
+      <h6>Recargar</h6>
+      <router-link class="h5 ml-auto" to="/perfil" style="color:#fff">
+        <b-icon class="mr-2" icon="person" />Mi perfil
+      </router-link>
     </b-navbar>
       <b-container class="py-5 verificar_tarjeta">
         <h1 class="text-left mb-5" style="font-weight:600">INGRESE UN <br/> MONTO:</h1>

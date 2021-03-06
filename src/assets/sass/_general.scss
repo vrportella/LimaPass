@@ -47,3 +47,12 @@
     fill: #fff;
   }
 }
+#modal-voucher {
+  .modal-body {
+    padding: 2rem;
+    p {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

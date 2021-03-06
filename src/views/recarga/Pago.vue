@@ -3,7 +3,10 @@
     <div v-if="loading" class="container-loader"><div class="loader">Cargando...</div></div>
     <b-navbar  variant="dark" align="center">
       <b-navbar-brand href="/recarga"><b-icon icon="arrow-left"></b-icon></b-navbar-brand>
-      <h6>Recargar</h6> 
+      <h6>Recargar</h6>
+      <router-link class="h5 ml-auto" to="/perfil" style="color:#fff">
+        <b-icon class="mr-2" icon="person" />Mi perfil
+      </router-link>
     </b-navbar>
       <b-container class="py-5">
         <div class="card card_pago">
@@ -63,6 +66,21 @@
           Metropolitano, no se responsabiliza frente a los usuarios o terceros por los daños y perjuicios que sean consecuencia directa o indirecta de la interrupción, suspensión o finalización de los servicios ofrecidos a través de esta pasarela de pagos, siendo esto responsabilidad del emisor de las tarjetas.
           Metropolitano, no se responsabiliza por los errores del usuario en el registro de los datos requeridos para el pago de los servicios en esta ventanilla virtual. Es responsabilidad del usuario verificar toda la información registrada antes de proceder con el pago.</p>
       </b-modal>
+      <b-modal id="modal-voucher" :no-close-on-backdrop="true" centered  title="Boleta de pago" hide-footer>
+        <div class="text-center mb-4">
+          <img class="logo" src="@/assets/img/logo-2.png" />
+          <h3>Pago realizado</h3>
+        </div>
+        <p><strong>N° de recibo</strong><span>{{voucher.nro_recibo}}</span></p>
+        <p><strong>Tipo tarjeta</strong><span>{{getTipoTarjeta(voucher.tipo_tarjeta)}}</span></p>
+        <p><strong>Tipo de transacción</strong><span>{{getTipoTransaccion(voucher.tipo_transac)}}</span></p>
+        <p><strong>Fecha</strong><span>{{voucher.fecha}}</span></p>
+        <p><strong>N° de tarjeta</strong><span>{{voucher.tarjeta_enmascarada}}</span></p>
+        <p><strong>Recarga</strong><span>S/.{{voucher.recarga}}</span></p>
+        <p><strong>Monto</strong><span>S/.{{voucher.monto}}</span></p>
+        <p><strong>Cliente</strong><span>{{voucher.nombre}} {{voucher.apellido}}</span></p>
+        <b-button class="mt-4" block variant="success" @click="goToHome()">REGRESAR</b-button>
+      </b-modal>
   </div>
 </template>
 
@@ -92,7 +110,8 @@ import axios from "axios";
         c_master: false,
         tipo: null,
         mes: null,
-        anio: null
+        anio: null,
+        voucher: {}
       }
     },
     created() {
@@ -100,6 +119,7 @@ import axios from "axios";
     mounted() {
       this.monto = this.$route.params.monto;
       this.tipo = this.$route.params.tipo;
+      
     },
     methods: {
       pintarCard(){
@@ -180,7 +200,10 @@ import axios from "axios";
             if(data.status == 200) {
               this.loading = false;
               this.error_msg = false;
-              this.showMsgModal(data.mensaje);
+              this.voucher = data.data;
+              // this.getTipoTarjeta(data.data.tipo_tarjeta)
+              this.$bvModal.show('modal-voucher')
+              // this.showMsgModal(data.mensaje);
               // let data = res.data.data.data;
             }
             else {
@@ -215,6 +238,37 @@ import axios from "axios";
             // })
           })
       },
+      goToHome() {
+        this.$router.push({
+          name: 'tarjetas'
+        })
+      },
+      getTipoTarjeta(tipo) {
+        switch(tipo) {
+          case '0':
+            return 'General'
+          case '1':
+            return 'Discapacitado'
+          case '2':
+            return 'Universitario'
+          case '3':
+            return 'Escolar'
+          case '4':
+            return 'Personalizada'
+          default:
+            return '--'
+        }
+      },
+      getTipoTransaccion(tipo) {
+        switch(tipo) {
+          case '0':
+            return 'Recarga'
+          case '1':
+            return 'Descuento'
+          default:
+            return '--'
+        }
+      }
     },
     computed: {
       dni: function(){

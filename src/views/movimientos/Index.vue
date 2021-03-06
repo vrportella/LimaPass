@@ -4,6 +4,9 @@
     <b-navbar  variant="light" align="center">
       <b-navbar-brand href="/tarjetas"><b-icon icon="arrow-left"></b-icon></b-navbar-brand>
       <h6>Ver mas</h6> 
+      <router-link class="h5 ml-auto" to="/perfil" style="color:#000">
+        <b-icon class="mr-2" icon="person" />Mi perfil
+      </router-link>
     </b-navbar>
     <div class="container_historial py-5">
       <h1 class="saldo">SALDO ACTUAL: <span>S/.{{saldo}}</span></h1>

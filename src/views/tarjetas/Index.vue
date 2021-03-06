@@ -2,7 +2,10 @@
   <div id="bg_blue">
     <div v-if="loading" class="container-loader"><div class="loader">Cargando...</div></div>
     <b-navbar  variant="light" align="center">
-      <h6 class="text-center">METROPOLITANO</h6> 
+      <h6 class="text-center">METROPOLITANO</h6>
+      <router-link class="h5 ml-auto" to="/perfil" style="color:#000">
+        <b-icon class="mr-2" icon="person" />Mi perfil
+      </router-link>
     </b-navbar>
     <div class="">
       <b-container class="py-5">
