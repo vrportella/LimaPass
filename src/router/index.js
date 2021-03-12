@@ -11,6 +11,7 @@ import Recarga from "../views/recarga/Index";
 import Pago from "../views/recarga/Pago";
 import Movimientos from "../views/movimientos/Index";
 import Perfil from "../views/perfil/Index";
+import PerfilVerificacion from "../views/perfil/Verificacion";
 
 Vue.use(VueRouter);
 
@@ -83,6 +84,12 @@ const routes = [
     name: "perfil",
     meta: { layout: "default"},
     component: Perfil
+  },
+  {
+    path: "/perfil-verificacion",
+    name: "perfil-verificacion",
+    meta: { layout: "default"},
+    component: PerfilVerificacion
   },
 ];
 

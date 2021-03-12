@@ -61,7 +61,6 @@ export default {
       error: false,
       error_msg: "",
       loading: false,
-      modalMsg: ''
     }
   },
   mounted() {
@@ -70,6 +69,56 @@ export default {
     this.campo_numero = this.numero;
   },
   methods: {
+    sendCode() {
+      this.loading = true;
+      let object = {
+        "usuario": this.dni,
+        "tipo" : '0',
+      };
+      axios.post('http://metropolitano.atspace.cc/php/verificarUpdate.php', object)
+      .then(res => {
+        let data = res.data;
+        console.log("res : ",data)
+        if(data.status == 200) {
+          this.error = false;
+          this.loading = false;
+          this.$router.push({
+            name: 'perfil-verificacion',
+            params: {
+              pin: data.data.codigo
+            }
+          })
+          let json2 = {
+            "user_id": 'user_h4PURwJXfyqxNMXb8osEh',
+            "service_id": 'service_3z6vpyf',
+            "template_id": 'template_8UZWBPKn',
+            "template_params" : {
+              "message" : data.data.codigo            
+              }
+          }
+          axios.post('https://api.emailjs.com/api/v1.0/email/send', json2)
+            .then( data => {
+            if(data.statusText == "OK") {
+              console.log(data.statusText)
+            } 
+          })
+          .catch(err =>
+            {
+              console.log(err.response)
+              this.loading = false;
+              this.error = true;
+              this.error_msg = err.response.data.data.msg
+            }
+          )
+        }
+        else {
+          this.loading = false;
+          this.error = true;
+          this.error_msg = 'Ocurrió un error. Inténtelo más tarde';
+        }
+      })
+      
+    },
     editProfile() {
       this.loading = true;
       let object = {
@@ -84,9 +133,9 @@ export default {
         if(data.status == 200) {
           this.loading = false;
           this.error = false;
-          this.showMsgModal(data.mensaje);
+          // this.showMsgModal(data.mensaje);
           this.getDataUser()
-              // let data = res.data.data.data;
+          this.sendCode()
         }
         else {
           this.loading = false;
@@ -100,15 +149,6 @@ export default {
           this.loading = false;
         }
       )
-    },
-    showMsgModal(text) {
-        this.modalMsg = '';
-        this.$bvModal.msgBoxOk(text,{
-          title: 'Mensaje',
-        })
-          .then(value => {
-            console.log('value',value)
-          })
     },
     getDataUser() {
       this.loading = true;
